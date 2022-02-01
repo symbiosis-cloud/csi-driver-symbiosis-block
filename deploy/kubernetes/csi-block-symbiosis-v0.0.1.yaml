@@ -296,12 +296,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: symbiosis
-                  key: cluster-id
+                  key: clusterId
             - name: SYMBIOSIS_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: symbiosis
-                  key: access-token
+                  key: symbiosisApiKey
           imagePullPolicy: "Always"
           securityContext:
             privileged: true
