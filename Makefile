@@ -1,18 +1,23 @@
-# Copyright 2019 The Kubernetes Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+GO_VERSION := 1.17.5
 
-CMDS=hostpathplugin
-all: build
+DOCKER_REPO ?= symbiosiscloud/csi-driver-symbiosis-block
+PKG ?= github.com/symbiosis-cloud/csi-driver-symbiosis-block/cmd/symbiosis-block-csi
+VERSION ?= 0.0.1
 
-include release-tools/build.make
+.PHONY: compile
+compile:
+	@echo "Building project"
+	@docker run --rm -e GOOS=${OS} -e GOARCH=amd64 -v ${PWD}/:/app -w /app golang:${GO_VERSION}-alpine sh -c 'apk add git && go build -mod=vendor -o cmd/symbiosis-block-csi/${NAME} ${PKG}'
+
+.PHONY: build
+build:
+	@echo "Building docker image"
+	@docker build -t $(DOCKER_REPO):$(VERSION) --platform linux/amd64 cmd/symbiosis-block-csi -f cmd/symbiosis-block-csi/Dockerfile
+
+.PHONY: push
+push:
+	@echo "Push docker image"
+	@docker push $(DOCKER_REPO):$(VERSION)
+
+.PHONY: all
+all: compile build push

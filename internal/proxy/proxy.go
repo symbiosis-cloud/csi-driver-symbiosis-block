@@ -37,7 +37,7 @@ import (
 
 	"github.com/golang/glog"
 
-	"github.com/symbiosis-cloud/csi-driver-symbiosis/internal/endpoint"
+	"github.com/symbiosis-cloud/csi-driver-symbiosis-block/internal/endpoint"
 )
 
 // New listens on both endpoints and starts accepting connections
