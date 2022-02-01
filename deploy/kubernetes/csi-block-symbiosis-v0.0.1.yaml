@@ -88,12 +88,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: symbiosis
-                  key: cluster-id
+                  key: clusterId
             - name: SYMBIOSIS_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: symbiosis
-                  key: symbiosis-api-key
+                  key: symbiosisApiKey
           imagePullPolicy: "Always"
           volumeMounts:
             - name: socket-dir
