@@ -79,7 +79,7 @@ spec:
             - name: CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
             - name: SYMBIOSIS_API
-              value: https://staging.api.symbiosis.host/
+              value: https://api.symbiosis.host/
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -252,7 +252,7 @@ spec:
       hostNetwork: true
       containers:
         - name: driver-registrar
-          image: quay.io/k8scsi/csi-node-driver-registrar:v2.0.1
+          image: quay.io/k8scsi/csi-node-driver-registrar:v2.4.0
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
